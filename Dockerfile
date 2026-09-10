@@ -12,7 +12,9 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-RUN pip install --no-cache-dir mcp2xiaozhi
+# Устанавливаем совместимые версии mcp и pydantic, затем сам мост
+RUN pip install --no-cache-dir "mcp==1.9.2" "pydantic==2.11.4" && \
+    pip install --no-cache-dir mcp2xiaozhi
 
 WORKDIR /app
 COPY mcp_config.json /app/mcp_config.json
