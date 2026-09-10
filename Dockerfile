@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED=1 \
 RUN pip install --no-cache-dir mcp2xiaozhi
 
 WORKDIR /app
-
+COPY mcp_config.json /app/mcp_config.json
 # Mount your mcp_config.json here (read-only). See docker-compose.yml.
 # Runs every enabled server; override CMD to target a single server, e.g.:
 #   CMD ["mcp2xiaozhi", "run", "calculator"]
