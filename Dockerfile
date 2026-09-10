@@ -13,9 +13,9 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Устанавливаем совместимые версии mcp и pydantic, затем сам мост
-RUN pip install --no-cache-dir "mcp==1.9.2" "pydantic==2.11.4" && \
+RUN pip install --no-cache-dir "mcp==2.2.0" "pydantic>=2.12,<3" && \
     pip install --no-cache-dir mcp2xiaozhi
-
+    
 WORKDIR /app
 COPY mcp_config.json /app/mcp_config.json
 # Mount your mcp_config.json here (read-only). See docker-compose.yml.
