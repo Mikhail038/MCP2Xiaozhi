@@ -12,9 +12,14 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# Устанавливаем совместимые версии mcp и pydantic, затем сам мост
-RUN pip install --no-cache-dir "mcp==2.2.0" "pydantic>=2.12,<3" && \
-    pip install --no-cache-dir mcp2xiaozhi
+# 1. Ставим MCP SDK v1 (последняя стабильная ветка) и совместимый pydantic
+RUN pip install --no-cache-dir "mcp==1.28.1" "pydantic==2.11.4"
+
+# 2. Ставим сам мост БЕЗ зависимостей, чтобы он не перетащил mcp 2.x
+RUN pip install --no-cache-dir --no-deps mcp2xiaozhi
+
+# 3. Вручную ставим остальные зависимости моста
+RUN pip install --no-cache-dir websockets httpx anyio python-dotenv
     
 WORKDIR /app
 COPY mcp_config.json /app/mcp_config.json
